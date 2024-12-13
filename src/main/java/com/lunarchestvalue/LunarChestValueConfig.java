@@ -81,8 +81,30 @@ public interface LunarChestValueConfig extends Config {
         return BoneMethod.BLESS;
     }
 
+    enum WyrmlingDisplay {
+        BOTH("Both"), GP("GP"), PRAYER("Prayer");
+        private final String stringValue;
+
+        WyrmlingDisplay(final String s) {
+            stringValue = s;
+        }
+
+        public String toString() {
+            return stringValue;
+        }
+    }
     @ConfigItem(
             position = 6,
+            keyName = "wyrmlingBoneDisplay",
+            name = "Wyrmling Bones total as",
+            description = "Total value of Wyrmling Bones under Both GP and Prayer, only GP, or only Prayer"
+    )
+    default WyrmlingDisplay wyrmlingBoneDisplay() {
+        return WyrmlingDisplay.BOTH;
+    }
+
+    @ConfigItem(
+            position = 7,
             keyName = "msgStart",
             name = "Message start",
             description = "Start of the message"
@@ -92,7 +114,7 @@ public interface LunarChestValueConfig extends Config {
     }
 
     @ConfigItem(
-            position = 7,
+            position = 8,
             keyName = "msgGe",
             name = "GE prefix",
             description = "GE value prefix"
@@ -102,7 +124,7 @@ public interface LunarChestValueConfig extends Config {
     }
 
     @ConfigItem(
-            position = 7,
+            position = 9,
             keyName = "msgHa",
             name = "HA prefix",
             description = "HA value prefix."
@@ -112,7 +134,7 @@ public interface LunarChestValueConfig extends Config {
     }
 
     @ConfigItem(
-            position = 7,
+            position = 10,
             keyName = "msgPrayer",
             name = "Prayer prefix",
             description = "Prayer xp prefix."
