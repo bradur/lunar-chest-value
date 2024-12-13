@@ -38,7 +38,7 @@ public interface LunarChestValueConfig extends Config {
     }
 
     enum PrayerXpType {
-        BLESSED_WINE("5xp (Blessed wine)"), BLESSED_SUNFIRE_WINE("6xp (Blessed sunfire wine)");
+        BLESSED_WINE("5xp (Blessed wine)"), BLESSED_SUNFIRE_WINE("6xp (Sunfire wine)");
         private final String stringValue;
 
         PrayerXpType(final String s) {
@@ -49,7 +49,6 @@ public interface LunarChestValueConfig extends Config {
             return stringValue;
         }
     }
-
     @ConfigItem(
             position = 4,
             keyName = "prayerXpType",
@@ -60,9 +59,52 @@ public interface LunarChestValueConfig extends Config {
         return PrayerXpType.BLESSED_WINE;
     }
 
+    enum BoneMethod {
+        BURY("21xp (Bury)"), OFFER("63exp (Offering)"), ALTAR("73.5exp (Gilded Altar)"), BLESS("105/126exp (Shards)"), ECTO("120exp (Ecto)"), WILDY("147exp (Wildy)");
+        private final String stringValue;
 
+        BoneMethod(final String s) {
+            stringValue = s;
+        }
+
+        public String toString() {
+            return stringValue;
+        }
+    }
     @ConfigItem(
             position = 5,
+            keyName = "wyrmlingBoneMethod",
+            name = "Wyrmling Bones",
+            description = "Bury, Offer, Ecto, Shards, etc"
+    )
+    default BoneMethod wyrmlingBoneMethod() {
+        return BoneMethod.BLESS;
+    }
+
+    enum WyrmlingDisplay {
+        BOTH("Both"), GP("GP"), PRAYER("Prayer");
+        private final String stringValue;
+
+        WyrmlingDisplay(final String s) {
+            stringValue = s;
+        }
+
+        public String toString() {
+            return stringValue;
+        }
+    }
+    @ConfigItem(
+            position = 6,
+            keyName = "wyrmlingBoneDisplay",
+            name = "Wyrmling Bones total as",
+            description = "Total value of Wyrmling Bones under Both GP and Prayer, only GP, or only Prayer"
+    )
+    default WyrmlingDisplay wyrmlingBoneDisplay() {
+        return WyrmlingDisplay.BOTH;
+    }
+
+    @ConfigItem(
+            position = 7,
             keyName = "msgStart",
             name = "Message start",
             description = "Start of the message"
@@ -72,7 +114,7 @@ public interface LunarChestValueConfig extends Config {
     }
 
     @ConfigItem(
-            position = 6,
+            position = 8,
             keyName = "msgGe",
             name = "GE prefix",
             description = "GE value prefix"
@@ -82,7 +124,7 @@ public interface LunarChestValueConfig extends Config {
     }
 
     @ConfigItem(
-            position = 7,
+            position = 9,
             keyName = "msgHa",
             name = "HA prefix",
             description = "HA value prefix."
@@ -92,7 +134,7 @@ public interface LunarChestValueConfig extends Config {
     }
 
     @ConfigItem(
-            position = 7,
+            position = 10,
             keyName = "msgPrayer",
             name = "Prayer prefix",
             description = "Prayer xp prefix."
