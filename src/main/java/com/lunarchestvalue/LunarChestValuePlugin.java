@@ -76,7 +76,8 @@ public class LunarChestValuePlugin extends Plugin {
         if (config.showPrayerXp()) {
             long prayerXpFromShards = mapAndSum(items, this::prayerXpFromBlessedBoneShards);
             long prayerXpFromSunKissedBones = mapAndSum(items, this::prayerXpFromSunKissedBones);
-            buildMessage(message, config.msgPrayer(), prayerXpFromShards + prayerXpFromSunKissedBones);
+            long prayerXpFromWyrmlingBones = mapAndSum(items, this::prayerXpFromWyrmlingBones);
+            buildMessage(message, config.msgPrayer(), prayerXpFromShards + prayerXpFromSunKissedBones + prayerXpFromWyrmlingBones);
         }
 
         chatMessageManager.queue(QueuedMessage.builder()
@@ -116,6 +117,29 @@ public class LunarChestValuePlugin extends Plugin {
         }
         int shardsPerBone = 45;
         return getPrayerXpPerShard() * item.getQuantity() * shardsPerBone;
+    }
+
+    private long prayerXpFromWyrmlingBones(Item item) {
+        if (item.getId() != ItemID.WYRMLING_BONES) {
+            return 0L;
+        }
+
+        switch (config.wyrmlingBoneMethod()) {
+            case BURY:
+                return item.getQuantity() * 21;
+            case OFFER:
+                return item.getQuantity() * 63;
+            case ALTAR:
+                return (long)(item.getQuantity() * 73.5);
+            case BLESS:
+                return getPrayerXpPerShard() * item.getQuantity() * 21;
+            case ECTO:
+                return item.getQuantity() * 120;
+            case WILDY:
+                return item.getQuantity() * 147;
+            default:
+                return 0;
+        }
     }
 
     private long mapAndSum(Item[] items, Function<Item, Long> valueMethod) {
