@@ -76,7 +76,7 @@ public class LunarChestValuePlugin extends Plugin {
         if (config.showPrayerXp()) {
             long prayerXpFromShards = mapAndSum(items, this::prayerXpFromBlessedBoneShards);
             long prayerXpFromSunKissedBones = mapAndSum(items, this::prayerXpFromSunKissedBones);
-            long prayerXpFromWyrmlingBones = mapAndSum(items, this::prayerXpFromWyrmlingBones);
+            long prayerXpFromWyrmlingBones = config.wyrmlingBoneDisplay() != LunarChestValueConfig.WyrmlingDisplay.GP ? mapAndSum(items, this::prayerXpFromWyrmlingBones) : 0;
             buildMessage(message, config.msgPrayer(), prayerXpFromShards + prayerXpFromSunKissedBones + prayerXpFromWyrmlingBones);
         }
 
@@ -97,10 +97,16 @@ public class LunarChestValuePlugin extends Plugin {
     }
 
     private long itemGeValue(Item item) {
+        if (item.getId() == ItemID.WYRMLING_BONES && config.wyrmlingBoneDisplay() == LunarChestValueConfig.WyrmlingDisplay.PRAYER) {
+            return 0L;
+        }
         return (long) itemManager.getItemPrice(item.getId()) * item.getQuantity();
     }
 
     private long itemHaValue(Item item) {
+        if (item.getId() == ItemID.WYRMLING_BONES && config.wyrmlingBoneDisplay() == LunarChestValueConfig.WyrmlingDisplay.PRAYER) {
+            return 0L;
+        }
         return (long) itemManager.getItemComposition(item.getId()).getHaPrice() * item.getQuantity();
     }
 
