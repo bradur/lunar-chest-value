@@ -49,7 +49,6 @@ public interface LunarChestValueConfig extends Config {
             return stringValue;
         }
     }
-
     @ConfigItem(
             position = 4,
             keyName = "prayerXpType",
@@ -60,9 +59,30 @@ public interface LunarChestValueConfig extends Config {
         return PrayerXpType.BLESSED_WINE;
     }
 
+    enum BoneMethod {
+        BURY("21xp (Bury)"), OFFER("63exp (Sinister Offering)"), ALTAR("73.5exp (Gilded Altar)"), BLESS("105exp/126exp (Blessed Bone Shards)"), ECTO("120exp (Ectofunctus)"), WILDY("147exp (Wildy Chaos Temple)");
+        private final String stringValue;
 
+        BoneMethod(final String s) {
+            stringValue = s;
+        }
+
+        public String toString() {
+            return stringValue;
+        }
+    }
     @ConfigItem(
             position = 5,
+            keyName = "wyrmlingBoneMethod",
+            name = "Method for Wyrmling Bones",
+            description = "Bury, Offer, Ecto, Shards, etc"
+    )
+    default wyrmlingBoneMethod prayerXpType() {
+        return BoneMethod.BLESS;
+    }
+
+    @ConfigItem(
+            position = 6,
             keyName = "msgStart",
             name = "Message start",
             description = "Start of the message"
@@ -72,7 +92,7 @@ public interface LunarChestValueConfig extends Config {
     }
 
     @ConfigItem(
-            position = 6,
+            position = 7,
             keyName = "msgGe",
             name = "GE prefix",
             description = "GE value prefix"
