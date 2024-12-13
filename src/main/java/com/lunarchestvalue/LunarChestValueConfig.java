@@ -38,7 +38,7 @@ public interface LunarChestValueConfig extends Config {
     }
 
     enum PrayerXpType {
-        BLESSED_WINE("5xp (Blessed wine)"), BLESSED_SUNFIRE_WINE("6xp (Blessed sunfire wine)");
+        BLESSED_WINE("5xp (Blessed wine)"), BLESSED_SUNFIRE_WINE("6xp (Sunfire wine)");
         private final String stringValue;
 
         PrayerXpType(final String s) {
@@ -60,7 +60,7 @@ public interface LunarChestValueConfig extends Config {
     }
 
     enum BoneMethod {
-        BURY("21xp (Bury)"), OFFER("63exp (Sinister Offering)"), ALTAR("73.5exp (Gilded Altar)"), BLESS("105exp/126exp (Blessed Bone Shards)"), ECTO("120exp (Ectofunctus)"), WILDY("147exp (Wildy Chaos Temple)");
+        BURY("21xp (Bury)"), OFFER("63exp (Offering)"), ALTAR("73.5exp (Gilded Altar)"), BLESS("105/126exp (Shards)"), ECTO("120exp (Ecto)"), WILDY("147exp (Wildy)");
         private final String stringValue;
 
         BoneMethod(final String s) {
@@ -74,7 +74,7 @@ public interface LunarChestValueConfig extends Config {
     @ConfigItem(
             position = 5,
             keyName = "wyrmlingBoneMethod",
-            name = "Method for Wyrmling Bones",
+            name = "Wyrmling Bones",
             description = "Bury, Offer, Ecto, Shards, etc"
     )
     default BoneMethod wyrmlingBoneMethod() {
