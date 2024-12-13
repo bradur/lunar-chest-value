@@ -77,7 +77,7 @@ public interface LunarChestValueConfig extends Config {
             name = "Method for Wyrmling Bones",
             description = "Bury, Offer, Ecto, Shards, etc"
     )
-    default wyrmlingBoneMethod prayerXpType() {
+    default BoneMethod wyrmlingBoneMethod() {
         return BoneMethod.BLESS;
     }
 
